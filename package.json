@@ -1,0 +1,35 @@
+{
+  "name": "namaste-react",
+  "version": "1.0.0",
+  "description": "react course",
+  "keywords": [
+    "react"
+  ],
+  "homepage": "https://github.com/krutikk/namastereact#readme",
+  "bugs": {
+    "url": "https://github.com/krutikk/namastereact/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krutikk/namastereact.git"
+  },
+  "license": "ISC",
+  "author": "Krutik",
+  "type": "commonjs",
+  "exports": "./app.js",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "parcel": "^2.14.4"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "broweserslist": [
+    "last 10 versions"
+  ]
+}

@@ -1,3 +1,5 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
 const html = React.createElement;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const parent = html("div", { id: "parent", key: "parent" }, [
