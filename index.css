@@ -20,7 +20,7 @@
   margin: 10px;
 }
 .resto-card {
-  width: 200px;
+  width: 300px;
   height: 400px;
   border-radius: 10px;
   text-align: left;
@@ -51,5 +51,15 @@
   flex-wrap: wrap;
   row-gap: 20px;
   justify-content: space-around;
-  margin: 20px;
+}
+.filter-button {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  border: none;
+}
+.filter-button:hover {
+  cursor: pointer;
+  background-color: #e0e0e0;
 }
