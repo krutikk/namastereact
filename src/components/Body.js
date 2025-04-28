@@ -1,27 +1,92 @@
 import React, { use, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import restList from "../utils/RestData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
+
 const Body = () => {
-  let [restaurantList, setListOfRestaurant] = useState(restList);
-  return (
+  const [restaurantList, setListOfRestaurant] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+
+    const restaurantListData =
+      json?.data.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+    const dataToDisplay = restaurantListData.map((resto) => {
+      const { name, cusine, stars, deliveryTime, image } = {
+        name: resto.info.name,
+        cusine: resto.info.cuisines,
+        stars: resto.info.avgRating,
+        deliveryTime: resto.info.sla.deliveryTime,
+        image:
+          "https://food-cms.grab.com/compressed_webp/merchants/4-C2AKGJ63KCLERN/hero/1c8af5cf9265413baab5f5bc455dbf8a_1630919276812163262.webp",
+      };
+      resto.info.cuisines;
+      return {
+        name,
+        cusine,
+        stars,
+        deliveryTime,
+        image,
+      };
+    });
+    setListOfRestaurant(dataToDisplay);
+    setFilteredRestaurant(dataToDisplay);
+  };
+
+  return restaurantList.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
-      <div className="search-bar">
-        <button
-          className="filter-button"
-          onClick={() => {
-            restaurantList = setListOfRestaurant(
-              restaurantList.filter((resto) => resto.stars > 4.5)
-            );
-            console.log(restaurantList);
-          }}
-          ß
-        >
-          Top Rated Restaurant
-        </button>
+      <div className="search">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search for restaurants and food"
+            className="search-input"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          <button
+            className="search-button"
+            onClick={() => {
+          
+              setFilteredRestaurant(
+                restaurantList.filter((resto) =>
+                  resto.name.toLowerCase().includes(searchText.toLowerCase())
+                )
+              );
+              setSearchText("");
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div className="filter-bar">
+          <button
+            className="filter-button"
+            onClick={() => {
+              setFilteredRestaurant(
+                restaurantList.filter((resto) => resto.stars > 4.5)
+              );
+            }}
+          >
+            Top Rated Restaurant
+          </button>
+        </div>
       </div>
       <div className="resto-list">
-        {restaurantList.map((resto) => {
+        {filteredRestaurant.map((resto) => {
           return <RestaurantCard key={resto.name} restData={resto} />;
         })}
       </div>
