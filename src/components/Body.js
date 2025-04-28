@@ -26,9 +26,9 @@ const Body = () => {
         cusine: resto.info.cuisines,
         stars: resto.info.avgRating,
         deliveryTime: resto.info.sla.deliveryTime,
-        image:
-          "https://food-cms.grab.com/compressed_webp/merchants/4-C2AKGJ63KCLERN/hero/1c8af5cf9265413baab5f5bc455dbf8a_1630919276812163262.webp",
+        image:  resto.info.cloudinaryImageId
       };
+  
       resto.info.cuisines;
       return {
         name,
@@ -38,6 +38,7 @@ const Body = () => {
         image,
       };
     });
+    console.log(dataToDisplay);
     setListOfRestaurant(dataToDisplay);
     setFilteredRestaurant(dataToDisplay);
   };
