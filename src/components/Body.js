@@ -2,6 +2,7 @@ import React, { use, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router";
 
 const Body = () => {
   const [restaurantList, setListOfRestaurant] = useState([]);
@@ -21,16 +22,18 @@ const Body = () => {
     const restaurantListData =
       json?.data.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
     const dataToDisplay = restaurantListData.map((resto) => {
-      const { name, cusine, stars, deliveryTime, image } = {
+      const { id,name, cusine, stars, deliveryTime, image } = {
+        id : resto.info.id,
         name: resto.info.name,
         cusine: resto.info.cuisines,
         stars: resto.info.avgRating,
         deliveryTime: resto.info.sla.deliveryTime,
-        image:  resto.info.cloudinaryImageId
+        image: resto.info.cloudinaryImageId,
       };
-  
+
       resto.info.cuisines;
       return {
+        id,
         name,
         cusine,
         stars,
@@ -61,7 +64,6 @@ const Body = () => {
           <button
             className="search-button"
             onClick={() => {
-          
               setFilteredRestaurant(
                 restaurantList.filter((resto) =>
                   resto.name.toLowerCase().includes(searchText.toLowerCase())
@@ -88,7 +90,15 @@ const Body = () => {
       </div>
       <div className="resto-list">
         {filteredRestaurant.map((resto) => {
-          return <RestaurantCard key={resto.name} restData={resto} />;
+          return (
+            <Link
+              key={resto.id}
+              to={"/restaurant/" + resto.id}
+            >
+              
+              <RestaurantCard key={resto.name} restData={resto} />
+            </Link>
+          );
         })}
       </div>
     </div>
