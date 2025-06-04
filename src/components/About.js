@@ -1,17 +1,29 @@
-import React from 'react';
+import React from "react";
+import UserClass from "./UserClass";
+import { Component } from "react";
 
-const About = () => {
+class About extends Component {
+  constructor(props) {
+    super(props);
+
+    //console.log("Parent Constructor");
+  }
+
+  componentDidMount() {
+    //console.log("Parent Component Did Mount");
+  }
+
+  render() {
+    //console.log("Parent Render");
     return (
-        <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-            <h1>About Us</h1>
-            <p>
-                Welcome to our website! We are dedicated to providing the best services and solutions to our customers.
-            </p>
-            <p>
-                Our team is passionate about delivering high-quality products and ensuring customer satisfaction. Thank you for visiting us!
-            </p>
-        </div>
+      <div>
+        <h1>About Class Component</h1>
+        <h2>This is Namaste React Web Series</h2>
+        <UserClass  />
+      </div>
     );
-};
+  }
+}
+
 
 export default About;
