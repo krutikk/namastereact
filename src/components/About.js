@@ -19,11 +19,10 @@ class About extends Component {
       <div>
         <h1>About Class Component</h1>
         <h2>This is Namaste React Web Series</h2>
-        <UserClass  />
+        <UserClass />
       </div>
     );
   }
 }
-
 
 export default About;

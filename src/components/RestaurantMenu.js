@@ -1,44 +1,21 @@
-import { useEffect, useState } from "react";
+
 import { useParams } from "react-router";
-import Shimmer from "./Shimmer";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestauratMenu = (props) => {
-  const [restaurantMenu, setRestaurantMenu] = useState();
-  const [restName, setRestaurantName] = useState();
+  
   const { resId } = useParams();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9715987&lng=77.5945627&restaurantId=" +
-        resId +
-        "&catalog_qa=undefined&submitAction=ENTER"
-    );
-
-    const json = await data.json();
-    const restName = json?.data?.cards[0]?.card?.card?.text;
-    setRestaurantName(restName);
-    const dishesList =
-      json?.data?.cards[4].groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-        ?.card?.itemCards;
-    const dishes = dishesList?.map((dish) => {
-      const name = dish?.card?.info?.name || "";
-      const price = dish?.card?.info?.price || "";
-      const description = dish?.card?.info?.description || "";
-
-      return { name, price, description };
-    });
-
-    setRestaurantMenu(dishes);
-  };
-
+  const {restaurantMenu,restName} = useRestaurantMenu(resId);
 
   return (
     <div className="restaurant-menu">
-      <h1>{restName}</h1>
-
+     
+      <h1>Restaurant Menu</h1>
+      <h2>{restName}</h2>
+      <p>
+        This is the restaurant menu page for restaurant with id: {resId}
+      </p>
       <h2>Menu</h2>
       <ul>
         {console.log(restaurantMenu)}
