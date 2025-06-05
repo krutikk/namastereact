@@ -13,9 +13,6 @@ const RestauratMenu = (props) => {
      
       <h1>Restaurant Menu</h1>
       <h2>{restName}</h2>
-      <p>
-        This is the restaurant menu page for restaurant with id: {resId}
-      </p>
       <h2>Menu</h2>
       <ul>
         {console.log(restaurantMenu)}

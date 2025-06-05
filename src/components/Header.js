@@ -12,30 +12,23 @@ const Header = () => {
   };
 
   return (
-    <div className="header">
+    <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
       <div>
-        <img className="logo" src={LOGO_URL} alt="Logo" />
+        <img className="w-28" src={LOGO_URL} alt="Logo" />
       </div>
-      <div className="nav-items">
-        <ul>
-           <li>Online Status: {onlineStatus ? "✅" : "🔴"}</li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About us</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact us</Link>
-          </li>
-          
-          <li>
-            <Link to="/grocery">Grocery</Link>
-          </li>
-          
+      <div className="flex-1"></div>
+      <div className="flex items-center flex-1">
+        <ul className="flex p-4 m-4 flex-row justify-center items-center space-x-4">
+          <li>Online Status: {onlineStatus ? "✅" : "🔴"}</li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About us</Link></li>
+          <li><Link to="/contact">Contact us</Link></li>
+          <li><Link to="/grocery">Grocery</Link></li>
           <li>Cart</li>
+        </ul>
+        <div>
           <button
-            className="login-button"
+            className="login-button px-4 py-2 bg-green-700 text-white rounded hover:bg-green-600 transition"
             onClick={() => {
               if (btnLogin === "Login") {
                 setButtonLogin("Logout");
@@ -46,7 +39,7 @@ const Header = () => {
           >
             {btnLogin}
           </button>
-        </ul>
+        </div>
       </div>
     </div>
   );
