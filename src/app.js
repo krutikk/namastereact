@@ -13,18 +13,32 @@ import {
   useRouteError,
 } from "react-router";
 
-
 import Error from "./components/Error";
 import ContactUs from "./components/ContactUs";
 import RestauratMenu from "./components/RestaurantMenu";
+import { useState, useEffect } from "react";
+import UserContext from "./utils/useContext";
+
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  //authentication
+  useEffect(() => {
+    // Make an API call and send username and password
+    const data = {
+      name: "Krutik Khandhadiya",
+    };
+    setUserName(data.name);
+  }, []);
   return (
-    <div className="APP">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <div className="APP">
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
+    </UserContext.Provider>
   );
 };
 // Create a router
@@ -37,11 +51,14 @@ const router = createBrowserRouter([
         path: "/",
         Component: Body,
       },
-      { path: "about", Component: ()=>(
+      {
+        path: "about",
+        Component: () => (
           <Suspense fallback={<div>Loading...</div>}>
             <About />
           </Suspense>
-      ) },
+        ),
+      },
       { path: "contact", Component: ContactUs },
       {
         path: "grocery",

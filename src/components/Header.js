@@ -1,12 +1,14 @@
-import React, { use, useState } from "react";
+import React, { use, useState, useContext } from "react";
 import { LOGO_URL } from "../utils/Constant";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/useContext";
 
 
 const Header = () => {
   const [btnLogin, setButtonLogin] = useState("Login");
   const onlineStatus = useOnlineStatus();
+  const { loggedInUser } = useContext(UserContext);
   const loadAboutPage = () => {
     window.location.href = "/about";
   };
@@ -16,14 +18,15 @@ const Header = () => {
       <div>
         <img className="w-28" src={LOGO_URL} alt="Logo" />
       </div>
-      <div className="flex-1"></div>
-      <div className="flex items-center flex-1">
+      <div className="flex"></div>
+      <div className="flex items-center flex-row justify-between">
         <ul className="flex p-4 m-4 flex-row justify-center items-center space-x-4">
           <li>Online Status: {onlineStatus ? "✅" : "🔴"}</li>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About us</Link></li>
           <li><Link to="/contact">Contact us</Link></li>
           <li><Link to="/grocery">Grocery</Link></li>
+          <li>{loggedInUser}</li>
           <li>Cart</li>
         </ul>
         <div>
@@ -39,6 +42,7 @@ const Header = () => {
           >
             {btnLogin}
           </button>
+          
         </div>
       </div>
     </div>

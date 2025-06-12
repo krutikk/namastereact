@@ -1,31 +1,32 @@
-
 import { useParams } from "react-router";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 const RestauratMenu = (props) => {
-  
   const { resId } = useParams();
-
-  const {restaurantMenu,restName} = useRestaurantMenu(resId);
+  const [showIndex, setShowIndex] = useState(null);
+  
+  const { restaurantMenu, restName, categories } = useRestaurantMenu(resId);
 
   return (
     <div className="restaurant-menu">
+      <h1 className="font-bold my-6 text-2xl text-center">{restName}</h1>
      
-      <h1>Restaurant Menu</h1>
-      <h2>{restName}</h2>
-      <h2>Menu</h2>
-      <ul>
-        {console.log(restaurantMenu)}
-        {restaurantMenu?.map((dish) => {
-          return (
-            <li key={dish.name}>
-              <h3>{dish.name}</h3>
-              <p>{dish.description}</p>
-              <p>Price: {dish.price / 100}</p>
-            </li>
-          );
-        })}
-      </ul>
+
+      {categories?.map((category, index) => {
+        return (
+          <RestaurantCategory
+            key={category?.card?.card.title}
+            title={category?.card?.card.title}
+            children={category?.card?.card.itemCards}
+            showItems={index === showIndex}
+            setShowIndex={() =>
+              setShowIndex(index === showIndex ? null : index)
+            }
+          ></RestaurantCategory>
+        );
+      })}
     </div>
   );
 };
