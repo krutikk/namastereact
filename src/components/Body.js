@@ -1,11 +1,10 @@
-import React, { use, useState } from "react";
+import { useState } from "react";
 import RestaurantCard, { withDiscountCard } from "./RestaurantCard";
 import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { withDiscountCard } from "./RestaurantCard";
-import {loggedInUser , setUserName} from "../utils/useContext";
 import UserContext from "../utils/useContext";
 
 const Body = () => {
@@ -13,7 +12,7 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
 
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-const { loggedInUser, setUserName } = useContext(UserContext);
+  const { loggedInUser, setUserName } = useContext(UserContext);
   const RestaurantCardDiscount = withDiscountCard(RestaurantCard);
   useEffect(() => {
     if (onlineStatus === true) fetchData();

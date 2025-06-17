@@ -1,8 +1,27 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItemToCart, removeItemFromCart } from "../utils/cartSlices"; // Adjust the import path as necessary
+import ItemList from "./ItemList"; 
 
 const RestaurantCategory = ({ title, children, showItems, setShowIndex }) => {
+
+  const dispatch = useDispatch();
   const toggleAccordion = () => {
     setShowIndex();
+  };
+
+  
+
+  const handleAddToCart = (item) => {
+    
+    dispatch(addItemToCart(item));
+   
+  };
+
+  const handleRemoveFromCart = (item) => {
+    const itemId = item?.card?.info?.id;
+    dispatch(removeItemFromCart(itemId));
+  
   };
 
   return (
@@ -14,37 +33,12 @@ const RestaurantCategory = ({ title, children, showItems, setShowIndex }) => {
         {title} {showItems ? "▲" : "▼"}
       </button>
       {showItems && (
-        <div className="py-3 bg-white">
-          {children?.map((item) => (
-            <div
-              key={item?.card?.info?.name}
-              className="flex items-start gap-4 p-4 mb-4 bg-white rounded-lg shadow border"
-            >
-              <img
-                src={
-                  item?.card?.info?.imageId
-                    ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${item.card.info.imageId}`
-                    : "https://placehold.co/300x300"
-                }
-                alt={item?.card?.info?.name}
-                className="w-24 h-24 object-cover rounded"
-              />
-              <div>
-                <h3 className="text-lg font-semibold mb-1">
-                  {item?.card?.info?.name}
-                </h3>
-                <p className="text-gray-600 mb-2">
-                  {item?.card?.info?.description}
-                </p>
-                <p className="text-green-700 font-bold">
-                  Price: ₹
-                  {item?.card?.info?.price / 100 ||
-                    item?.card?.info?.defaultPrice / 100}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ItemList
+          children={children}
+        
+          handleAddToCart={handleAddToCart}
+          handleRemoveFromCart={handleRemoveFromCart}
+        />
       )}
     </div>
   );

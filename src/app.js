@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import React, { lazy, Suspense } from "react";
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
+import Cart from "./components/Cart";
 import {
   createBrowserRouter,
   Outlet,
@@ -18,7 +19,8 @@ import ContactUs from "./components/ContactUs";
 import RestauratMenu from "./components/RestaurantMenu";
 import { useState, useEffect } from "react";
 import UserContext from "./utils/useContext";
-
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 const AppLayout = () => {
   const [userName, setUserName] = useState();
@@ -32,13 +34,15 @@ const AppLayout = () => {
     setUserName(data.name);
   }, []);
   return (
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-      <div className="APP">
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="APP">
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 // Create a router
@@ -69,6 +73,7 @@ const router = createBrowserRouter([
         ),
       },
       { path: "/restaurant/:resId", Component: RestauratMenu },
+      { path: "cart", Component: Cart },
     ],
   },
 ]);
