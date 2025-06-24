@@ -3,3 +3,5 @@
 /.parcel-cache
 /.cache
 /dist
+/coverage
+/.env

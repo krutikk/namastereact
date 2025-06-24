@@ -12,6 +12,7 @@ const ContactUs = () => {
                     type="text"
                     id="name"
                     name="name"
+                    placeholder='name'
                     required
                     className="w-full p-2 mb-4 border border-gray-300 rounded"
                 />
@@ -21,6 +22,7 @@ const ContactUs = () => {
                     type="email"
                     id="email"
                     name="email"
+                    placeholder='email'
                     required
                     className="w-full p-2 mb-4 border border-gray-300 rounded"
                 />

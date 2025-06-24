@@ -1,10 +1,8 @@
-import { useState } from "react";
 import RestaurantCard, { withDiscountCard } from "./RestaurantCard";
 import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import { withDiscountCard } from "./RestaurantCard";
 import UserContext from "../utils/useContext";
 
 const Body = () => {
@@ -76,6 +74,7 @@ const Body = () => {
         <div className="search m-4 p-4 flex-1">
           <input
             type="text"
+            data-testid="searchInput"
             placeholder="Search for restaurants and food"
             className="border border-solid border-green text-xl " // Added text-xl for bigger text
             value={searchText}

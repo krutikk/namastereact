@@ -11,6 +11,7 @@ const ItemList = ({ children, handleAddToCart, handleRemoveFromCart }) => {
         const quantity = cartids.length;
         return (
           <div
+            data-testid="foodItems"
             key={item?.card?.info?.id}
             className="flex items-start gap-4 p-4 mb-4 bg-white rounded-lg shadow border"
           >
